@@ -1,0 +1,15 @@
+<p>chat works!</p>
+
+
+<div class="container mt-5" *ngIf="messages.length > 0">
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let message of messages">
+      {{ message }}
+    </li>
+  </ul>
+</div>
+
+<form id="chat-form" (ngSubmit)="sendMessage()">
+  <input type="text" name="message" [(ngModel)]="message" placeholder="Type your message">
+  <button type="submit">Send</button>
+</form>
