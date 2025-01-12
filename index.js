@@ -1,11 +1,27 @@
+const express = require('express');
 const { Server } = require('socket.io');
-const server = new Server({
+const http = require('http');
+
+// Create an Express application
+const app = express();
+
+// Create an HTTP server and attach Express
+const httpServer = http.createServer(app);
+
+// Attach socket.io to the HTTP server
+const io = new Server(httpServer, {
   cors: {
-    origin: 'http://localhost:4200'
-  }
+    origin: 'http://localhost:4200', // Allow requests from this origin
+  },
 });
 
-server.on('connection', (socket) => {
+// Serve a basic HTML file at the root URL for testing
+app.get('/', (req, res) => {
+  res.send('<h1>Socket.IO Server Running</h1>');
+});
+
+// Handle socket.io connections
+io.on('connection', (socket) => {
   console.log('connected');
   socket.on('message', (data) => {
     console.log(data);
@@ -13,11 +29,14 @@ server.on('connection', (socket) => {
   });
 });
 
+const PORT = 9000;
+
+// Start the server
 console.log("Attempting to start the server...");
-server.listen(9000, (err) => {
-    if (err) {
-      console.error("Error starting server:", err);
-    } else {
-      console.log("Server running at port 9000");
-    }
-  });
+httpServer.listen(PORT, (err) => {
+  if (err) {
+    console.error("Error starting server:", err);
+  } else {
+    console.log(`Server running at http://localhost:${PORT}`);
+  }
+});
