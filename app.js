@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express');
 const { Server } = require('socket.io');
 const http = require('http');
@@ -11,7 +12,7 @@ const httpServer = http.createServer(app);
 // Attach socket.io to the HTTP server
 const io = new Server(httpServer, {
   cors: {
-    origin: 'http://localhost:4200', // Allow requests from this origin
+    origin: '*',//,http://localhost:4200', // Allow requests from this origin
   },
 });
 
@@ -29,7 +30,7 @@ io.on('connection', (socket) => {
   });
 });
 
-const PORT = 9000;
+const PORT = process.env.Port || 9000;
 
 // Start the server
 console.log("Attempting to start the server...");
