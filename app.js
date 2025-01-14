@@ -18,7 +18,11 @@ const io = new Server(httpServer, {
 
 // Serve a basic HTML file at the root URL for testing
 app.get('/', (req, res) => {
-  res.send('<h1>Socket.IO Server Running</h1>');
+  res.send(`
+    <h1>Socket.IO Server Running......</h1>
+    <h1>Hi Veronica!!!!!!</h1>
+    <h1>Hello.... Ritika!!!!!</h1>
+  `);
 });
 
 // Handle socket.io connections
