@@ -12,7 +12,7 @@ const httpServer = http.createServer(app);
 // Attach socket.io to the HTTP server
 const io = new Server(httpServer, {
   cors: {
-    origin: '*',//,http://localhost:4200', // Allow requests from this origin
+    origin: '*',//http://localhost:4200', // Allow requests from this origin
   },
 });
 
