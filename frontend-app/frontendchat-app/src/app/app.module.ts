@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 import {FormsModule} from '@angular/forms';
+import { HomeComponent } from './components/home/home.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:9000', options: {} };
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChatComponent
+    ChatComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
