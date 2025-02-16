@@ -1,5 +1,6 @@
 require('dotenv').config()
 const express = require('express');
+const serverless = require("serverless-http");
 const { Server } = require('socket.io');
 const http = require('http');
 
@@ -12,7 +13,7 @@ const httpServer = http.createServer(app);
 // Attach socket.io to the HTTP server
 const io = new Server(httpServer, {
   cors: {
-    origin: '*',//http://localhost:4200', // Allow requests from this origin
+    origin: '*',
   },
 });
 
@@ -33,15 +34,15 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('received', { data: data, message: 'Message sent to server.' });
   });
 });
+module.exports.handler = serverless(app);
+// const PORT = process.env.Port || 9000;
 
-const PORT = process.env.Port || 9000;
-
-// Start the server
-console.log("Attempting to start the server...");
-httpServer.listen(PORT, (err) => {
-  if (err) {
-    console.error("Error starting server:", err);
-  } else {
-    console.log(`Server running at http://localhost:${PORT}`);
-  }
-});
+// // Start the server
+// console.log("Attempting to start the server...");
+// httpServer.listen(PORT, (err) => {
+//   if (err) {
+//     console.error("Error starting server:", err);
+//   } else {
+//     console.log(`Server running at http://localhost:${PORT}`);
+//   }
+// });
